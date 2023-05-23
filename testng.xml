@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All tests">
+
+
+    <listeners>
+        <listener class-name="Listeners.ScreenshotListener"></listener>
+    </listeners>
+
+    <test name="Regression Tests">
+      <classes>
+          <class name="ui.regression.ElementsTest"></class>
+
+      </classes>
+    </test>
+    <test name="Smoke Tests">
+        <packages>
+            <package name="ui.smoke"></package>
+        </packages>
+    </test>
+</suite>
