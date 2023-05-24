@@ -3,8 +3,6 @@ package org.demoqa.ui.pages.Elements;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.demoqa.ui.pages.BasePage;
-import org.demoqa.ui.pages.HomePage;
-
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -47,6 +45,11 @@ public  class ElementsPage extends BasePage {
 
     public ElementsPage openLinks(){
         elementActions.press(getOpenLinks);
+        return this;
+    }
+
+    public ElementsPage openBrokenLinksandimages(){
+        elementActions.press(getOpenBrokenLinks);
         return this;
     }
 

@@ -13,6 +13,9 @@ import Listeners.ScreenshotListener;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
+/**
+ * @author Argen
+ */
 
 @Listeners({SoftAsserts.class, ScreenShooter.class, ScreenshotListener.class
 })

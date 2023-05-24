@@ -45,11 +45,12 @@ public abstract class BaseUiTest {
       elementsButtons = new Elements_Buttons();
       elementsLinks = new Elements_Links();
 
-       ChromeOptions chromeOptions = new ChromeOptions();
-       chromeOptions.addArguments("--window-size=1920,1080");
-       DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-       desiredCapabilities.setCapability(ChromeOptions.CAPABILITY,chromeOptions);
-       Configuration.browserCapabilities = desiredCapabilities;
+//       ChromeOptions chromeOptions = new ChromeOptions();
+//       chromeOptions.addArguments("--window-size=1920,1080");
+//       DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+//       desiredCapabilities.setCapability(ChromeOptions.CAPABILITY,chromeOptions);
+//       Configuration.browserCapabilities = desiredCapabilities;
+
      open("https://demoqa.com/");
    }
 
