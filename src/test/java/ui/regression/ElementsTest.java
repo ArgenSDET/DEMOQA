@@ -1,7 +1,9 @@
 package ui.regression;
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.testng.ScreenShooter;
 import com.codeborne.selenide.testng.SoftAsserts;
+import org.demoqa.ui.pages.Elements.Elements_BrokenImgLinks;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Listeners;
@@ -124,6 +126,31 @@ public class ElementsTest extends BaseUiTest {
        sleep(3000);
         elementsPage.openLinks();
         elementsLinks.getResponseLinks();
+   }
+
+   @Test(priority = 8)
+    public void TestBrokenLinksImage(){
+        elementsPage.openBrokenLinksandimages();
+        refresh();
+       elementsBrokenImgLinks .getImage()
+               .getlinks();
+   }
+   @Test(priority = 9)
+    public void TestUploadFile(){
+       homePage.clickElements();
+        elementsPage.openDownFile();
+        elementsUplFile.ClickUploadDownLoadFile();
+        $(By.id("uploadedFilePath")).shouldHave(text("C:\\fakepath\\sampleFile.jpeg"));
+   }
+
+   @Test(priority = 10)
+    public void TestDynamicProper(){
+        elementsPage.openDynamicProperties();
+        SelenideElement dynamicElement = $(By.id("colorChange"));
+        String initValue = dynamicElement.getValue();
+        sleep(5000);
+        String updateValue = dynamicElement.getValue();
+        Assert.assertNotEquals(initValue,updateValue);
    }
 
 

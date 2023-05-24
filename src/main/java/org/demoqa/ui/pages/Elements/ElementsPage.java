@@ -52,5 +52,13 @@ public  class ElementsPage extends BasePage {
         elementActions.press(getOpenBrokenLinks);
         return this;
     }
+    public  ElementsPage openDownFile(){
+        elementActions.press(getOpenUploadDownloadFile);
+        return this;
+    }
+    public ElementsPage openDynamicProperties(){
+        elementActions.press(getOpenDynamicProperties);
+        return this;
+    }
 
 }

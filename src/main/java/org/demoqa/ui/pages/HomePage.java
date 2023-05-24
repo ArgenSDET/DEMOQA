@@ -28,4 +28,10 @@ public  class  HomePage extends BasePage {
         return this;
     }
 
+
+    public HomePage clickForms(){
+        elementActions.press(gotoForms);
+        return this;
+    }
+
 }

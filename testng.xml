@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="All tests">
-
-
+<suite name="All Test Suite">
     <listeners>
         <listener class-name="Listeners.ScreenshotListener"></listener>
     </listeners>
-
-    <test name="Regression Tests">
-      <classes>
-          <class name="ui.regression.ElementsTest"></class>
-
-      </classes>
-    </test>
-    <test name="Smoke Tests">
-        <packages>
-            <package name="ui.smoke"></package>
-        </packages>
+    <test verbose="2" preserve-order="true" name="C:/Users/DELL/IdeaProjects/DemoQaProject">
+        <classes>
+            <class name="ui.regression.ElementsTest">
+                <methods>
+                    <include name="TextBoxTest"/>
+                    <include name="Testforentereddata"/>
+                    <include name="checkBoxClickTest"/>
+                    <include name="clickTestRadioButtons"/>
+                    <include name="TestWebTables"/>
+                    <include name="TestClickToButtons"/>
+                    <include name="LinkTest"/>
+                    <include name="TestBrokenLinksImage"/>
+                    <include name="TestUploadFile"/>
+                    <include name="TestDynamicProper"/>
+                </methods>
+            </class>
+        </classes>
     </test>
 </suite>

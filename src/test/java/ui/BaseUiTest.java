@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.demoqa.ui.config.SelenideConfig;
 import org.demoqa.ui.element_helper.WebElementActions;
 import org.demoqa.ui.pages.Elements.*;
+import org.demoqa.ui.pages.Forms.PracticeForms;
 import org.demoqa.ui.pages.HomePage;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -32,6 +33,10 @@ public abstract class BaseUiTest {
    public Elements_Buttons elementsButtons;
 
    public Elements_Links elementsLinks;
+   public Elements_BrokenImgLinks elementsBrokenImgLinks;
+   public Elements_UplFile elementsUplFile;
+
+   public PracticeForms practiceForms;
 
    @BeforeClass
     public void setup(){
@@ -44,12 +49,15 @@ public abstract class BaseUiTest {
       elementsWebTables = new Elements_WebTables();
       elementsButtons = new Elements_Buttons();
       elementsLinks = new Elements_Links();
+      elementsBrokenImgLinks = new Elements_BrokenImgLinks();
+      elementsUplFile = new Elements_UplFile();
+      practiceForms = new PracticeForms();
 
-//       ChromeOptions chromeOptions = new ChromeOptions();
-//       chromeOptions.addArguments("--window-size=1920,1080");
-//       DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-//       desiredCapabilities.setCapability(ChromeOptions.CAPABILITY,chromeOptions);
-//       Configuration.browserCapabilities = desiredCapabilities;
+       ChromeOptions chromeOptions = new ChromeOptions();
+       chromeOptions.addArguments("--window-size=1920,1080");
+       DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+       desiredCapabilities.setCapability(ChromeOptions.CAPABILITY,chromeOptions);
+       Configuration.browserCapabilities = desiredCapabilities;
 
      open("https://demoqa.com/");
    }
