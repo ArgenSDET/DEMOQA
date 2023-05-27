@@ -1,12 +1,15 @@
 package ui;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.demoqa.ui.config.SelenideConfig;
+import org.demoqa.ui.element_helper.FakerGenerator;
 import org.demoqa.ui.element_helper.WebElementActions;
+import org.demoqa.ui.pages.AlertsFrameWindow.AlertsFrameWindowPage;
 import org.demoqa.ui.pages.Elements.*;
 import org.demoqa.ui.pages.Forms.PracticeForms;
 import org.demoqa.ui.pages.HomePage;
@@ -37,6 +40,8 @@ public abstract class BaseUiTest {
    public Elements_UplFile elementsUplFile;
 
    public PracticeForms practiceForms;
+   public FakerGenerator fakerGenerator;
+   public AlertsFrameWindowPage alertsFrameWindowPage;
 
    @BeforeClass
     public void setup(){
@@ -52,12 +57,15 @@ public abstract class BaseUiTest {
       elementsBrokenImgLinks = new Elements_BrokenImgLinks();
       elementsUplFile = new Elements_UplFile();
       practiceForms = new PracticeForms();
+      fakerGenerator = new FakerGenerator();
+      alertsFrameWindowPage = new AlertsFrameWindowPage();
 
-       ChromeOptions chromeOptions = new ChromeOptions();
-       chromeOptions.addArguments("--window-size=1920,1080");
-       DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-       desiredCapabilities.setCapability(ChromeOptions.CAPABILITY,chromeOptions);
-       Configuration.browserCapabilities = desiredCapabilities;
+
+//       ChromeOptions chromeOptions = new ChromeOptions();
+//       chromeOptions.addArguments("--window-size=1920,1080");
+//       DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+//       desiredCapabilities.setCapability(ChromeOptions.CAPABILITY,chromeOptions);
+//       Configuration.browserCapabilities = desiredCapabilities;
 
      open("https://demoqa.com/");
    }

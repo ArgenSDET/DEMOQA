@@ -3,19 +3,15 @@ package org.demoqa.ui.element_helper;
 import com.github.javafaker.Faker;
 
 import java.text.NumberFormat;
+import java.util.Date;
 import java.util.Locale;
 
 public class FakerGenerator {
     Faker faker = new Faker();
 
-    public String randomfullName(){
-        return faker.name().fullName();
-    }
+   public  String name=  Faker.instance().name().firstName();
 
-    public String randomFirstName(){
-        return faker.name()
-                .firstName();
-    }
+    String randomFirstName = faker.name().firstName();
     public String randomLastName(){
         return faker.name().lastName();
     }
@@ -39,6 +35,17 @@ public class FakerGenerator {
         return faker.internet().emailAddress();
     }
     public String randomCurrentAddress(){
-        return faker.address().streetAddressNumber();
+        return Faker.instance().address().streetAddress();
+    }
+
+    public Date randomDateBirth(){
+        return faker.date().birthday();
+    }
+
+    public  String randomMnumber(){
+        String phoneNumber = Faker.instance().phoneNumber().subscriberNumber(6);
+        String formattedPhoneNumber = "0501"+phoneNumber;
+        return formattedPhoneNumber;
+
     }
 }

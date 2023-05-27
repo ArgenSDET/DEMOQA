@@ -19,7 +19,7 @@ public class Elements_WebTables extends BasePage {
 
     public Elements_WebTables FillinginthRegistrationfields() {
         addButton.click();
-        $(By.id("firstName")).setValue(fakerGenerator.randomFirstName());
+        $(By.id("firstName")).setValue(fakerGenerator.name);
         $(By.id("lastName")).setValue(fakerGenerator.randomLastName());
         $(By.id("userEmail")).setValue(fakerGenerator.randomEmail());
         $(By.id("age")).setValue(fakerGenerator.randomAge());

@@ -19,7 +19,7 @@ public class Elements_TextBox extends BasePage {
     public SelenideElement getDataPernamanent =$x("//p[@id='permanentAddress']");
 
     public Elements_TextBox writeFullname(){
-        $(By.id("userName")).setValue(fakerGenerator.randomfullName());
+        $(By.id("userName")).setValue(fakerGenerator.name);
         return this;
     }
     public Elements_TextBox writeEmail(){

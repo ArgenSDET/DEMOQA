@@ -1,21 +1,23 @@
 package org.demoqa.ui.pages.Forms;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import org.demoqa.ui.pages.BasePage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import static com.codeborne.selenide.Condition.*;
+
+import java.io.File;
 import java.util.Random;
 
-import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Selenide.*;
 
 public class PracticeForms extends BasePage {
-    public SelenideElement gotoPractic = $x("//li[@class='btn btn-light active']") ;
+    public SelenideElement gotoPractic = $x("//div/div/div[2]/div[1]/div/div/div[2]/div/ul/li[@id='item-0']") ;
 
     public SelenideElement firstName = $(By.id("firstName")) ;
 
@@ -29,7 +31,7 @@ public class PracticeForms extends BasePage {
     public SelenideElement mnumber = $(By.id("userNumber"));
     public SelenideElement Dateb = $(By.id("dateOfBirthInput"));
 
-    public SelenideElement subjects = $(By.id("subjectsInput"));
+    public SelenideElement subject = $(By.id("subjectsInput"));
     public SelenideElement listOfSubjects = $x("//*[contains(@class,'26l3qy-menu')]");
 
     public SelenideElement hobbies = $x("/html/body/div[2]/div/div/div[2]/div[2]/div[2]/form/div[7]/div[2]");
@@ -48,187 +50,160 @@ public class PracticeForms extends BasePage {
     public SelenideElement submit = $(By.id("submit"));
 
 
-
     public PracticeForms openPractic(){
-        elementActions.press(gotoPractic);
+        gotoPractic.click();
         return this;
     }
 
-    public PracticeForms registrationfield(){
-        firstName.setValue(fakerGenerator.randomfullName());
-        lastname.setValue(fakerGenerator.randomLastName());
-        email.setValue(fakerGenerator.randomEmail());
+    public  PracticeForms SelectGender(){
+        String randomGenderValue =  generateRandomGender();
+        SelenideElement gender1 = $x("//input[@value='" + randomGenderValue + "']");
+        gender1.sendKeys(" ");
+        return this;
+    }
+
+    public static  String generateRandomGender(){
+        String [] genderList = {"Male","Female","Other"};
+        Random random = new Random();
+        int index = random.nextInt(genderList.length);
+        return genderList[index];
+    }
+
+
+
+    public PracticeForms writeDatebirth(){
+        this.Dateb.sendKeys(Keys.SHIFT,Keys.HOME);
+        elementActions.input(this.Dateb, String.valueOf(fakerGenerator.randomDateBirth()));
+        this.Dateb.sendKeys(Keys.ENTER);
+        return this;
+    }
+
+    public PracticeForms selectSubjects() {
+        String subjectName = "ma,eng,ch,comm,eco";
+        String[] parts = subjectName.split(",");
+        for (String e: parts) {
+            elementActions.input(this.subject, e);
+            listOfSubjects.shouldBe(Condition.visible);
+            ElementsCollection subjects = $$(listOfSubjects.findElements(By.tagName("div")));
+            for (SelenideElement s : subjects) {
+                if (s.getText().toLowerCase().substring(0, e.length()).equals(e.toLowerCase())) {
+                    s.click();
+                    break;
+                }
+            }
+        }
+        return this;
+    }
+
+    public static  String generateRandomHobbies(){
+        String[] hobbiesList = {"Sports","Reading","Music"};
+        Random random =  new Random();
+        int index = random.nextInt(hobbiesList.length);
+        return hobbiesList[index];
+    }
+
+    public PracticeForms SelectHobbies(){
+        String hobby = generateRandomHobbies();
+        SelenideElement hobbies1 = $x("//label[text()='" + hobby + "']");
+        hobbies1.click();
+        return this;
+    }
+
+    public PracticeForms ClickUploadFile(){
+        File file = new File("C:\\Users\\DELL\\Downloads\\sampleFile.jpeg");
+        $(By.id("uploadPicture")).uploadFile(file);
         return this;
     }
 
 
-   public  PracticeForms SelectGender(){
-       String randomGenderValue =  generateRandomGender();
-       SelenideElement gender1 = $x("//input[@value='" + randomGenderValue + "']");
-       gender1.sendKeys(" ");
+
+    public static String clickRandomState(){
+        String[] stateList = {"NCR","Uttar Pradesh","Haryana","Rajasthan"};
+        Random random = new Random();
+        int index = random.nextInt(stateList.length);
+        return stateList[index];
+
+    }
+
+    public  PracticeForms SelectState(){
+        String statename = clickRandomState();
+        elementActions.input(this.state,statename);
+       listofState.findElements(By.tagName("div")).stream()
+               .filter(s-> s.getText().toLowerCase().startsWith(statename.toLowerCase()))
+               .findFirst()
+               .ifPresent(WebElement::click);
        return this;
-   }
+    }
 
-   public static  String generateRandomGender(){
-       String [] genderList = {"Male","Female","Other"};
-       Random random = new Random();
-       int index = random.nextInt(genderList.length);
-       return genderList[index];
-   }
+    public static String clickRandomCityNCR(){
+        String[] stateNCR = {"Delhi","Gurgaon","Noida"};
+        Random random = new Random();
+        int index = random.nextInt(stateNCR.length);
+        return stateNCR[index];
+    }
 
+    public static String clickRandomCityUttar(){
+        String[] stateUttar = {"Agra","Lucknow","Merrut"};
+        Random random = new Random();
+        int index = random.nextInt(stateUttar.length);
+        return stateUttar[index];
+    }
 
+    public static String clickRandomCityHaryana(){
+        String[] stateHaryana = {"Karnal","Panipat"};
+        Random random = new Random();
+        int index = random.nextInt(stateHaryana.length);
+        return stateHaryana[index];
+    }
 
-//    public PracticeForms writeFirstName(String firstName){
-//        elementActions.input(this.firstName,firstName);
-//        return this;
-//    }
-//
-//
-//
-//    public RegistrantionForm writeLastName(String Lastname){
-//        elementActions.input(this.lastname,Lastname);
-//        return this;
-//    }
-//    public RegistrantionForm writeEmail(String email){
-//        elementActions.input(this.email,email);
-//        return this;
-//    }
-//    public RegistrantionForm chooseGender(String gender){
-//        if(gender.equalsIgnoreCase("male")){
-//            Driver.getDriver().findElement(By.id("gender-radio-1")).sendKeys(" ");
-//        }
-//        else if(gender.equalsIgnoreCase("Female")){
-//            Driver.getDriver().findElement(By.id("gender-radio-2")).sendKeys(" ");
-//        } else if (gender.equalsIgnoreCase("other")) {
-//            Driver.getDriver().findElement(By.id("gender-radio-3")).sendKeys(" ");
-//        }
-//        return this;
-//    }
-//
-//    public RegistrantionForm writeMobileNumber(String mnumber){
-//        elementActions.input(this.mnumber,mnumber);
-//        return this;
-//    }
-//
-//    public RegistrantionForm writeDatebirth(String dateb){
-//        this.Dateb.sendKeys(Keys.SHIFT,Keys.HOME);
-//        elementActions.input(this.Dateb,dateb);
-//        this.Dateb.sendKeys(Keys.ENTER);
-//        return this;
-//    }
-//    public RegistrantionForm selectSubjects(String subjectName) {
-//        String[] parts = subjectName.split(",");
-//        for (String e: parts) {
-//            elementActions.input(this.subjects, e);
-//            listOfSubjects.findElements(By.tagName("div"))
-//                    .stream()
-//                    .filter(s -> s.getText().toLowerCase().startsWith(e.toLowerCase()))
-//                    .findFirst()
-//                    .ifPresent(SelenideElement::click);
-//        }
-//        return this;
-//    }
-//
-//    public RegistrantionForm selectHobies(String hobbiesName){
-//        if(hobbiesName.equalsIgnoreCase("Sports")){
-//            Driver.getDriver().findElement(By.id("hobbies-checkbox-1")).sendKeys(" ");
-//        } else if (hobbiesName.equalsIgnoreCase("Reading")) {
-//            Driver.getDriver().findElement(By.id("hobbies-checkbox-2")).sendKeys(" ");
-//        }else if (hobbiesName.equalsIgnoreCase("Music")) {
-//            Driver.getDriver().findElement(By.id("hobbies-checkbox-3")).sendKeys(" ");
-//        }return this;
-//    }
-//    public RegistrantionForm uploadPicture(String file){
-//
-//        picture.sendKeys(file);
-//        return this;
-//    }
-//
-//    public RegistrantionForm writeCrAddress(String craddres1){
-//        elementActions.input(Craddress, craddres1);
-//        return this;
-//    }
-//    public RegistrantionForm SelectState(String stateName) {
-//        elementActions.input(this.state, stateName);
-//        listofState.findElements(By.tagName("div")).stream()
-//                .filter(s -> s.getText().toLowerCase().startsWith(stateName.toLowerCase()))
-//                .findFirst()
-//                .ifPresent(SelenideElement::click);
-//        return this;
-//    }
-//    public RegistrantionForm SelectCity(String cityName){
-//        elementActions.input(this.city, cityName);
-//        listofCity.findElements(By.tagName("div")).stream()
-//                .filter(s -> s.getText().toLowerCase().startsWith(cityName.toLowerCase()))
-//                .findFirst()
-//                .ifPresent(SelenideElement::click);
-//        return this;
-//    }
-//    public RegistrantionForm btnsubmit(){
-//        submit.click();
-//        return  this;
-//    }
-//    public RegistrantionForm scrollDown(){
-//        JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();
-//        js.executeScript("window.scrollBy(0,400)");
-//        return this;
-//    }
+    public static String clickRandomCityRajastan(){
+        String[] stateRajastan = {"Jaipur","Jaiselmer"};
+        Random random = new Random();
+        int index = random.nextInt(stateRajastan.length);
+        return stateRajastan[index];
+    }
 
+    public PracticeForms SelectCity() {
+        String statename = clickRandomState();
+        String cityNCR = clickRandomCityNCR();
+        String cityUttar = clickRandomCityUttar();
+        String cityHaryana = clickRandomCityHaryana();
+        String cityRajastan = clickRandomCityRajastan();
+        if (statename.contains("NCR")) {
+            elementActions.input(this.city, cityNCR);
+            listofCity.findElements(By.tagName("div")).stream()
+                    .filter(s -> s.getText().toLowerCase().startsWith(cityNCR.toLowerCase()))
+                    .findFirst()
+                    .ifPresent(WebElement::click);
+        } else if (statename.contains("Uttar Pradesh")) {
+            elementActions.input(this.city, cityUttar);
+            listofCity.findElements(By.tagName("div")).stream()
+                    .filter(s -> s.getText().toLowerCase().startsWith(cityUttar.toLowerCase()))
+                    .findFirst()
+                    .ifPresent(WebElement::click);
+        } else if (statename.contains("Haryana")) {
+            elementActions.input(this.city, cityHaryana);
+            listofCity.findElements(By.tagName("div")).stream()
+                    .filter(s -> s.getText().toLowerCase().startsWith(cityHaryana.toLowerCase()))
+                    .findFirst()
+                    .ifPresent(WebElement::click);
+        } else if (statename.contains("Rajasthan")) {
+            elementActions.input(this.city, cityRajastan);
+            listofCity.findElements(By.tagName("div")).stream()
+                    .filter(s -> s.getText().toLowerCase().startsWith(cityRajastan.toLowerCase()))
+                    .findFirst()
+                    .ifPresent(WebElement::click);
+        }
+        return  this;
+    }
 
-//
-//    @FindBy(css = "tr:nth-child(1) td:nth-child(1)")
-//    public SelenideElement labelName;
-//    @FindBy(css = "tr:nth-child(2) td:nth-child(1)")
-//    public SelenideElement labelEmail;
-//    @FindBy(css = "tr:nth-child(3) td:nth-child(1)")
-//    public SelenideElement labelGender;
-//    @FindBy(css = "tr:nth-child(4) td:nth-child(1)")
-//    public SelenideElement labelMobile;
-//    @FindBy(css = "tr:nth-child(5) td:nth-child(1)")
-//    public SelenideElement labelDateOfBirth;
-//    @FindBy(css = "tr:nth-child(6) td:nth-child(1)")
-//    public SelenideElement labelSubjects;
-//    @FindBy(css = "tr:nth-child(7) td:nth-child(1)")
-//    public SelenideElement labelHobbies;
-//    @FindBy(css = "tr:nth-child(8) td:nth-child(1)")
-//    public SelenideElement labelPicture;
-//    @FindBy(css = "tr:nth-child(9) td:nth-child(1)")
-//    public SelenideElement labelAddress;
-//    @FindBy(css = "tr:nth-child(10) td:nth-child(1)")
-//    public SelenideElement labelStateAndCity;
-//
-//    /////////////////////////////////////////////////////////////
-//    @FindBy(css = "tr:nth-child(1) td:nth-child(2)")
-//    public SelenideElement valueName;
-//    @FindBy(css = "tr:nth-child(2) td:nth-child(2)")
-//    public SelenideElement valueEmail;
-//    @FindBy(css = "tr:nth-child(3) td:nth-child(2)")
-//    public SelenideElement valueGender;
-//    @FindBy(css = "tr:nth-child(4) td:nth-child(2)")
-//    public SelenideElement valueMobile;
-//    @FindBy(css = "tr:nth-child(5) td:nth-child(2)")
-//    public SelenideElement valueDateOfBirth;
-//    @FindBy(css = "tr:nth-child(6) td:nth-child(2")
-//    public SelenideElement valueSubjects;
-//    @FindBy(css = "tr:nth-child(7) td:nth-child(2)")
-//    public SelenideElement valueHobbies;
-//    @FindBy(css = "tr:nth-child(8) td:nth-child(2)")
-//    public SelenideElement valuePicture;
-//    @FindBy(css = "tr:nth-child(9) td:nth-child(2)")
-//    public SelenideElement valueAddress;
-//    @FindBy(css = "tr:nth-child(10) td:nth-child(2)")
-//    public SelenideElement valueStateAndCity;
-//
-//
-//    public Map<String, String> resultForm() {
-//        List<SelenideElement> keys = List.of(labelName, labelEmail, labelGender, labelMobile, labelDateOfBirth, labelSubjects, labelHobbies, labelPicture, labelAddress, labelStateAndCity);
-//        List<SelenideElement> value = List.of(valueName, valueEmail, valueGender, valueMobile, valueDateOfBirth, valueSubjects, valueHobbies, valuePicture, valueAddress, valueStateAndCity);
-//        LinkedHashMap<String, String> resultForm = new LinkedHashMap<>();
-//        for (int i = 0; i < keys.size(); i++) {
-//            resultForm.put(keys.get(i).getText(), value.get(i).getText());
-//        }
-//        return resultForm;
-//
-//    }
+    public PracticeForms clickSubmit(){
+        submit.click();
+        return this;
+    }
+    public PracticeForms scrollDown() {
+        Selenide.executeJavaScript("window.scrollBy(0,400)");
+        return this;
+    }
 
 }

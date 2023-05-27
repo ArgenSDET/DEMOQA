@@ -34,4 +34,9 @@ public  class  HomePage extends BasePage {
         return this;
     }
 
+    public HomePage clickAllertsFrame(){
+        elementActions.press(gotoAlertsFrame);
+        return this;
+    }
+
 }
