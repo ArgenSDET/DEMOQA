@@ -13,7 +13,9 @@ import org.demoqa.ui.pages.AlertsFrameWindow.AlertsFrameWindowPage;
 import org.demoqa.ui.pages.Elements.*;
 import org.demoqa.ui.pages.Forms.PracticeForms;
 import org.demoqa.ui.pages.HomePage;
+import org.demoqa.ui.pages.Widgets.*;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
@@ -42,6 +44,15 @@ public abstract class BaseUiTest {
    public PracticeForms practiceForms;
    public FakerGenerator fakerGenerator;
    public AlertsFrameWindowPage alertsFrameWindowPage;
+   public Accordian accordian ;
+   public AutoComplete autoComplete;
+   public Data_Picker dataPicker;
+   public Slider slider;
+   public ProgressBar progressBar;
+   public Tabs tabs;
+   public ToolTips toolTips;
+   public Menu menu;
+   public SelectMenu selectMenu;
 
    @BeforeClass
     public void setup(){
@@ -59,6 +70,17 @@ public abstract class BaseUiTest {
       practiceForms = new PracticeForms();
       fakerGenerator = new FakerGenerator();
       alertsFrameWindowPage = new AlertsFrameWindowPage();
+      accordian = new Accordian();
+      autoComplete = new AutoComplete();
+      dataPicker = new Data_Picker();
+      slider = new Slider();
+      progressBar = new ProgressBar();
+      tabs = new Tabs();
+      toolTips = new ToolTips();
+      menu = new Menu();
+      selectMenu = new SelectMenu();
+
+
 
 
 //       ChromeOptions chromeOptions = new ChromeOptions();
@@ -67,6 +89,7 @@ public abstract class BaseUiTest {
 //       desiredCapabilities.setCapability(ChromeOptions.CAPABILITY,chromeOptions);
 //       Configuration.browserCapabilities = desiredCapabilities;
 
+       Configuration.browserSize = "1920x1080";
      open("https://demoqa.com/");
    }
 

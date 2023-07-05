@@ -1,7 +1,7 @@
-package org.demoqa.ui.pages;
+package org.skadate.UI.pages;
 
-import org.demoqa.ui.element_helper.FakerGenerator;
-import org.demoqa.ui.element_helper.WebElementActions;
+import org.skadate.UI.element_helper.FakerGenerator;
+import org.skadate.UI.element_helper.WebElementActions;
 
 public abstract class BasePage {
 
